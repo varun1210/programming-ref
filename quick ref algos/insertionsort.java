@@ -22,8 +22,8 @@ class Main {
             
             2)
             1 3 7 4 8 && j == 2
-            7 is at the wrong position, but i still have to check if its possible to move till the end. as long as the flag is false, the code knows it can keep exploring further 
-            and still know if it should swap or not
+            7 is at the correct position, but i still have to check if its possible to move till the end. as long as the flag is false, the code knows it can keep exploring further 
+            and still know if it should swap or not (flag remains false, so loop exits on its own after reaching i = -1.
             */
             for(int i=j-1; i>=-1; i--) {
                 if(i == -1) { //Special case for when the element is to be inserted into the first position
