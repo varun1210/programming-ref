@@ -1,0 +1,80 @@
+public class Main
+{
+    
+    //USING SLIDING WINDOW
+    //sliding window does not work if ther are negative numbers in the array
+    public static int subArrayWithSumWindow(int[] a, int k) {
+        int windowStart = 0;
+        int windowEnd = 0;
+        int currentSum = a[windowStart];
+        if(a.length == 1) {
+            if(currentSum != k) {
+                return -1;
+            }
+            else {
+                return 1;
+            }
+        }
+        int count = 0;
+        while(windowEnd < a.length) {
+            if(currentSum < k) {
+                windowEnd++;
+                if(windowEnd == a.length) {
+                    break;
+                }
+                currentSum += a[windowEnd];
+            }
+            else if(currentSum > k) {
+                currentSum -= a[windowStart];
+                windowStart++;
+            }
+            else {
+                count++;
+                windowEnd++;
+                if(windowEnd == a.length) {
+                    break;
+                }
+                currentSum += a[windowEnd];
+                currentSum -= a[windowStart];
+                windowStart++;
+            }
+        }
+        return count;
+    }
+    
+    //USING TWO POINTERS [O(n^2)]
+    public static int subArrayWithSum(int[] a, int k) {
+        int currentSum = 0;
+        int count = 0;
+        for(int i=0; i<a.length; i++) {
+            for(int j = i; j < a.length; j++) {
+                currentSum += a[j];
+                if(currentSum == k) {
+                    count++;
+                }
+            }
+            currentSum = 0;
+        }
+        return count;
+    }
+    
+    
+	public static void main(String[] args) {
+	    int[] a = new int[]{1, 5, 7, 3, 9};
+	    int b = subArrayWithSum(a, 12);
+	    System.out.println(b);
+	    int c = subArrayWithSumWindow(a, 12);
+	    System.out.println(c);
+	    
+	}
+}
+
+//Use this class to return if we have to return the array from i to j
+class Ans {
+    int i;
+    int j;
+    Ans(int i, int j) {
+        this.i = i;
+        this.j = j;
+    }
+}
