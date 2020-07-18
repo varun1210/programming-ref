@@ -78,6 +78,8 @@ class Main {
                     dp[i][w] = dp[i + 1][w];
                 }
                 else {
+                    //for unbounded knapsack, the change is:
+                    //int includeAns = val[i] + dp[i + 1][w - wt[i]]
                     int includeAns = val[i] + dp[i + 1][w - wt[i]];
                     int excludeAns = dp[i + 1][w];
                     dp[i][w] = Math.max(includeAns, excludeAns);
@@ -86,6 +88,16 @@ class Main {
         }
         return dp[0][maxWeight];
     }
+    /*
+    UNBOUNDED KNAPSACK:
+    In an unbounded knapsack, we have three options:
+    1) it is impossible to take the ith item, so our return is the same as 0 1 knapsack
+    2) it is possible to take the ith item but we do not want to take it, so return is the same as the 0 1 knapsack
+    3) it is possible to take the ith item and i want to take it. 
+    In case 3, we can keep taking item i again and again, so to change the code of bounded knapsack to unbounded knapsack, the only minor edit we make is, 
+    int includeAns = val[i] + dp[i][w - wt[i]]
+    REST of the code is the same
+    */
     
     public static void main(String[] args) {
         int[] val = {5, 4, 8, 6};
