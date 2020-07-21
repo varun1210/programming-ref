@@ -20,6 +20,16 @@ public class Queue {
         rear = -1;
         size = 0;
     }
+    
+    public int peek() {
+        if(size == 0) {
+            System.out.println("Queue is empty!");
+            return -1;
+        }
+        else {
+            return data[front];
+        }
+    }
 
     public void enqueue(int a){
         if(size == data.length) {
