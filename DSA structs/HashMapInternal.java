@@ -51,6 +51,25 @@ class MyHashMap<K, V> {
         bucketList.set(index, thisNode);
         entries++;
     }
+    
+    private void rehash() {
+        ArrayList<MapNode<K, V>> temp = bucketList;
+        bucketList = new ArrayList<MapNode<K, V>>();
+        for(int i = 0; i < 2 * temp.size(); i++) {
+            bucketList.add(null);
+        }
+        bucketCount *= 2;
+        entries = 0;
+        for(int i = 0; i < temp.size(); i++) {
+            MapNode<K, V> thisNode = temp.get(i);
+            while(thisNode != null) {
+                K key = thisNode.key;
+                V value = thisNode.value;
+                insert(key, value);
+                thisNode = thisNode.next;
+            }
+        }
+    }
 
     public V getValue(K key) {
         int index = getBucketIndex(key);
